@@ -1,17 +1,17 @@
-import { Form, Input, Button } from "antd";
+import { Form, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { selectAuth } from "../../Redux/Login/loginReducer";
 import { LoginAction } from "../../Redux/Login/action";
 import { ACTION } from "../../Assets/ActionType";
-
+import FormInput from '../../Copomnent/Common/FormItem/Input'
+import { useIntl } from 'react-intl'
 const Login = () => {
-  let Navigate = useNavigate();
-
+  const intl = useIntl()
+  let Navigate = useNavigate(); 
   const dispatch = useDispatch();
-  const isLog = useSelector(selectAuth);
-  console.log("isLog", isLog);
+  const isLog = useSelector(selectAuth); 
   useEffect(() => {
     if (!isLog) {
       Navigate("/");
@@ -37,39 +37,40 @@ const Login = () => {
       }}
       wrapperCol={{
         span: 16,
-      }}
-      initialValues={{
-        remember: true,
-      }}
+      }} 
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
-        label="Username"
-        name="email"
-        rules={[
-          {
-            required: true,
-            message: "Please input your username!",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+      <FormInput 
+       label={intl.formatMessage({id: 'form.userName'})}
+       maxLength={50}
+       name="email"
+       rules={[
+         {
+           required: true,
+           message: "Please input your username!",
+         },
+         {
+          max: 50,
+          message: "Please input your username!",
+        },
+       ]}
+      /> 
 
-      <Form.Item
-        label="Password"
+      <FormInput 
+       label={intl.formatMessage({id: 'form.password'})}
         name="password"
+        maxLength={50}
         rules={[
           {
             required: true,
             message: "Please input your password!",
           },
         ]}
-      >
-        <Input.Password />
-      </Form.Item>
+        type={'password'}
+      /> 
+      
 
       <Form.Item
         wrapperCol={{
@@ -78,7 +79,7 @@ const Login = () => {
         }}
       >
         <Button type="primary" htmlType="submit">
-          Login
+          {intl.formatMessage({ id: 'Button.Login' })}
         </Button>
       </Form.Item>
     </Form>
