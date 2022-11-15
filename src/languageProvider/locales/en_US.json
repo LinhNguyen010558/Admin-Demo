@@ -1,8 +1,42 @@
 {
     "Button.Login": "Login",
+    "Button.RefreshList": "Refresh List",
+    "Button.Close": "Close",
+    "Button.Cancel": "Cancel",
+    "Button.BackHome": "Back Home",
+    "Button.Delete": "Delete",
+    "Button.Submit": "Submit",
+    "Button.AddNew": "Add New",
+    "Button.Edit": "Edit", 
     
     "title.Login": "Login",
+    "title.Logout": "Logout",
+    "title.404": "404",
+    "title.404.subTitle": "Sorry, the page you visited does not exist.",
+    "title.UserManegerment": "User Manegerment",
+    "title.AddUser": "Add User",
+    "title.EditUser": "Edit User",
+    "title.Delete": "Do you Want to delete this data ?",
 
-    "form.userName": "User name",
-    "form.password": "Password"
+    
+    "title.AddNote": "Add Note",
+    "title.EditNote": "Edit Note",
+
+    "form.userName": "Username",
+    "form.password": "Password",
+    "form.Content": "Content",
+
+    
+    "form.Validate": "Please input your ${label}",
+    "form.Validate.Email": "The input is not valid Email!",
+
+    "label.Empty": "Empty Data",
+    "label.Confirm.Delete": "Do you Want to delete this user ?",
+
+    "table.column.Id": "ID",
+    "table.column.Username": "Username",
+    "table.column.Age": "Age",
+    "table.column.Email": "Email",
+    "table.column.Notes": "Notes",
+    "table.column.Action": "Action"
 }

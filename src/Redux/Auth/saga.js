@@ -1,17 +1,20 @@
 import { all, put, takeLatest, fork } from 'redux-saga/effects';
 import actions from './actions';
-import notification from '../../Copomnent/Common/Notification/index';
+import notification from '../../Compomnent/Common/Notification/index';
 import { checkAuth } from "../../helper/ActionLogin";
 
 
 function* Login() {
-    yield takeLatest(actions.LOGIN, function* ({ data }) {
-        try {
-            const callApi = checkAuth(data)
+    yield takeLatest(actions.LOGIN, function* ( {payload} ) {
+        try { 
+            const callApi = yield checkAuth(payload)
             if (callApi?.code === 1) {
                 yield localStorage.setItem('user', JSON.stringify(callApi.user));
                 yield localStorage.setItem('token', callApi.token);
-                yield put(actions.loginSuccess());
+                yield put(actions.loginSuccess({
+                    token: callApi.token,
+                    user: callApi.user
+                }));
                 notification('success', 'SUCCESS', '')
             } else {
                 notification('error', 'Login Error!', '');

@@ -2,25 +2,23 @@ import { Form, Button } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";  
-import FormInput from '../../Copomnent/Common/FormItem/Input'
+import FormInput from '../../Compomnent/Common/FormItem/Input'
 import { useIntl } from 'react-intl'
 import actions from '../../Redux/Auth/actions'
 const Login = () => {
   const intl = useIntl()
   let Navigate = useNavigate(); 
   const dispatch = useDispatch();
-  const isLog = useSelector((state) => state?.Auth); 
+  const isLog = useSelector((state) => state?.Auth.isLoggedIn); 
 
   useEffect(() => {
-    if (!isLog) {
-      Navigate("/");
-    } else {
-      Navigate("/Users");
-    }
+    if (isLog) { 
+      Navigate("/");  
+    }  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLog]);
 
-  const onFinish = (values) => {
+  const onFinish = (values) => { 
     dispatch(actions.loginAction(values));
   };
 

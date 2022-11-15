@@ -5,6 +5,7 @@ const actions = {
     LOGIN_SUCCESS: DOCUMENT + 'LOGIN_SUCCESS',
     LOGOUT: DOCUMENT + 'LOGOUT', 
     ACTION_FAILURE: DOCUMENT + 'ACTION_FAILURE',
+    CLEAR_DATA: DOCUMENT + 'CLEAR_DATA',
 
     loginAction: (data) => {
         return ({
@@ -13,9 +14,10 @@ const actions = {
         })
     },
 
-    loginSuccess: () =>{
+    loginSuccess: (data) =>{
         return ({
             type: actions.LOGIN_SUCCESS,
+            payload: data
         })
     },
 
@@ -29,6 +31,12 @@ const actions = {
         return ({
             type: actions.ACTION_FAILURE
         })
-    }
+    },
+
+    clearData:() =>{
+        return ({
+            type: actions.CLEAR_DATA
+        });
+    },
 }
 export default actions

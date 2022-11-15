@@ -3,6 +3,8 @@ import actions from './actions'
 const initialState = {
     loading: false,
     isLoggedIn: false, 
+    token: null,
+    user: null,
 }
 
 const AuthReducer = (state = initialState, action) => {
@@ -17,7 +19,9 @@ const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false, 
-                isLoggedIn: true
+                isLoggedIn: true,
+                token: action.payload.token,
+                user: action.payload.user
             }
         case actions.ACTION_FAILURE:
             return {
@@ -25,6 +29,10 @@ const AuthReducer = (state = initialState, action) => {
                 loading: false,
                 isLoggedIn: false
             }
+        case actions.CLEAR_DATA:
+            return {
+                ...initialState,
+             }
   
   
       default:

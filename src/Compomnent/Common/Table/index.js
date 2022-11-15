@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from 'react'
 import { Table } from 'antd'
+import { useIntl } from 'react-intl'
 
 export const TableComponent = ({
     className,
@@ -11,12 +12,13 @@ export const TableComponent = ({
     page,
     loading,
     data,
-    heightTable = '650px',
-    widthTable = '1250px',
+    heightTable = 'auto',
+    widthTable = 'auto',
     keys = 'id',
     expandedRowRender,
     onExpandedRowsChange
 }) => {
+    const intl = useIntl()
     const [currentPage, setCurrentPage] = useState(1)
     const onChangePage = (page, pageSize) => {
         setCurrentPage(page)
@@ -41,7 +43,7 @@ export const TableComponent = ({
             columns={columns}
             locale={{
                 // emptyText: intl.formatMessage({ id: 'sidebar.users.no_data' }),
-                emptyText: <IntlMessages id="button.empty" />
+                emptyText: intl.formatMessage({id: 'label.Empty'})
             }}
             bordered
             expandIconAsCell={false}

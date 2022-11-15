@@ -1,20 +1,20 @@
 import { Modal, Button, Space } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
-
-import { useDispatch } from "react-redux";
-import { UserAction } from "../../Redux/User/action";
-import { ACTION } from "../../Assets/ActionType";
+import { useIntl } from 'react-intl'
+import { useDispatch } from "react-redux"; 
+import actions from "../../../Redux/User/actions";
 
 const { confirm } = Modal;
 const DeleteUser = ({ user }) => {
+  const intl = useIntl(); 
   const dispatch = useDispatch();
   const showConfirm = () => {
     confirm({
-      title: `Do you Want to delete user ID ${user.userId} ?`,
+      title: intl.formatMessage({id: "title.Delete"}),
       icon: <ExclamationCircleOutlined />,
-      content: "Some descriptions",
+      content: user?.userId,
       onOk() {
-        dispatch(UserAction(ACTION.DELETE_USERS, user));
+        dispatch(actions.editData(user, 'Delete'))
       },
       onCancel() {
         console.log("Cancel");
