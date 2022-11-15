@@ -1,21 +1,23 @@
-import { all, takeEvery, put, takeLatest, fork } from 'redux-saga/effects';
+import { all, put, takeLatest, fork } from 'redux-saga/effects';
 import actions from './actions';
 import notification from '../../Copomnent/Common/Notification/index';
-import { auth } from "../../Assets/data";
+import { checkAuth } from "../../helper/ActionLogin";
 
-export function* Login({ payload: data }) {
-    yield takeLatest(actions.LOGIN, function* ({ payload }) {
+
+function* Login() {
+    yield takeLatest(actions.LOGIN, function* ({ data }) {
         try {
-            const { email, password } = data;
-            if (email === auth.USERNAME && password === auth.PASSWORD) {
-                // yield put(LoginAction(ACTION.USER_LOGIN_SUCCESS, email));
-
+            const callApi = checkAuth(data)
+            if (callApi?.code === 1) {
+                yield localStorage.setItem('user', JSON.stringify(callApi.user));
+                yield localStorage.setItem('token', callApi.token);
+                yield put(actions.loginSuccess());
                 notification('success', 'SUCCESS', '')
-            } else { 
+            } else {
                 notification('error', 'Login Error!', '');
                 yield put(actions.actionFailure());
             }
-        } catch (error) { 
+        } catch (error) {
             notification('error', 'Login Error!', '');
             yield put(actions.actionFailure());
         }
@@ -23,16 +25,15 @@ export function* Login({ payload: data }) {
 }
 
 
-export function* LogOut() {
+function* LogOut() {
     yield takeLatest(actions.LOGOUT, function* ({ payload }) {
-    try {
-        // yield put(LogOutAction(ACTION.USER_LOGOUT_SUCCESS));
-    } catch (error) {
-        
-        notification('error', 'Logout Error!', '');
-        yield put(actions.actionFailure());
-    }
-})
+        try { 
+            yield localStorage.clear();
+        } catch (error) { 
+            notification('error', 'Logout Error!', '');
+            yield put(actions.actionFailure());
+        }
+    })
 }
 
 

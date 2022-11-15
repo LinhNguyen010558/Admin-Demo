@@ -3,14 +3,19 @@ const DOCUMENT = 'AUTH_';
 const actions = {
     LOGIN: DOCUMENT + 'LOGIN',
     LOGIN_SUCCESS: DOCUMENT + 'LOGIN_SUCCESS',
-    LOGOUT: DOCUMENT + 'LOGOUT',
-
+    LOGOUT: DOCUMENT + 'LOGOUT', 
     ACTION_FAILURE: DOCUMENT + 'ACTION_FAILURE',
 
     loginAction: (data) => {
         return ({
             type: actions.LOGIN,
             payload: data
+        })
+    },
+
+    loginSuccess: () =>{
+        return ({
+            type: actions.LOGIN_SUCCESS,
         })
     },
 
