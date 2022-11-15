@@ -7,7 +7,7 @@ import actions from "../../Redux/User/actions";
 import { useIntl } from 'react-intl'
 import UserModal from "../../Compomnent/User/Modal/edit";
 import TableComponent from '../../Compomnent/Common/Table/index'
-import authActions from '../../Redux/Auth/actions'
+import authActions from '../../Redux/Auth/actions' 
 import { Link } from "react-router-dom";
 
 export default function Users() {
@@ -135,8 +135,7 @@ export default function Users() {
               }}
             >
               {intl.formatMessage({ id: 'Button.AddNew' })}
-            </Button>
-            {/* <AddUser /> */}
+            </Button> 
             <Button
               type="primary"
               style={{ marginLeft: 10 }}
@@ -149,8 +148,7 @@ export default function Users() {
           </Row>
         </Col>
         <Col span={12}>
-          <Divider orientation="right">
-            {/* <Csv /> */}
+          <Divider orientation="right"> 
           </Divider>
         </Col>
       </Row>
