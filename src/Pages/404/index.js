@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 const App = () =>{ 
   const intl = useIntl()
   let Navigate = useNavigate(); 
+  let currentLocation = window.location; 
+            console.log(currentLocation)
   return (
   <Result
     status="404"

@@ -38,6 +38,8 @@ const UserModal = (props) => {
         {
             title: "Action",
             key: "action",
+            width: 200,
+            fixed: "right",
             render: (_, record) => {
                 return (
                     <div>
@@ -95,10 +97,11 @@ const UserModal = (props) => {
             userName: formData?.userName?.trim(),
             age: formData.age,
             email: formData.email,
-            password: formData.password
+            password: formData.password,
+            notes: listNote
         }
         if (Data) {
-            handleSubmit({ ...temp, notes: listNote, userId: Data.userId }, modal);
+            handleSubmit({ ...temp, userId: Data.userId }, modal);
         } else handleSubmit({ ...temp }, modal);
     }
 

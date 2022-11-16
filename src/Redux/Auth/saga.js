@@ -31,7 +31,8 @@ function* Login() {
 function* LogOut() {
     yield takeLatest(actions.LOGOUT, function* ({ payload }) {
         try { 
-            yield localStorage.clear();
+            yield localStorage.clear(); 
+            window.location.reload()
         } catch (error) { 
             notification('error', 'Logout Error!', '');
             yield put(actions.actionFailure());

@@ -1,4 +1,4 @@
-import { Space, Divider, Button, Row, Col, Tag } from "antd";
+import { Divider, Button, Row, Col, Tag } from "antd";
 import React, { useMemo } from 'react';
 import DeleteUser from "../../Compomnent/User/Item/Deleteuser";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +7,7 @@ import actions from "../../Redux/User/actions";
 import { useIntl } from 'react-intl'
 import UserModal from "../../Compomnent/User/Modal/edit";
 import TableComponent from '../../Compomnent/Common/Table/index'
-import authActions from '../../Redux/Auth/actions' 
-import { Link } from "react-router-dom";
+import authActions from '../../Redux/Auth/actions'
 
 export default function Users() {
   const intl = useIntl();
@@ -27,15 +26,6 @@ export default function Users() {
   const handleResetSearch = async (page = 1, limit = 10) => {
     dispatch(actions.getDataUser({ page, limit }))
   };
-  useEffect(() => {
-    handleResetSearch(page, limit)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const onChange = (pageNumber) => {
-    if (page !== pageNumber.current || limit !== pageNumber.pageSize)
-      handleResetSearch(pageNumber.current, pageNumber.pageSize);
-  };
 
   const handleOnclick = (data = null, type) => {
     setDataUpdate(data)
@@ -50,6 +40,19 @@ export default function Users() {
     }
   }
 
+  const onChange = (pageNumber) => {
+    if (page !== pageNumber.current || limit !== pageNumber.pageSize)
+      handleResetSearch(pageNumber.current, pageNumber.pageSize);
+  };
+
+  useEffect(() => {
+    handleResetSearch(page, limit)
+    return () => {
+      dispatch(actions.clearData())
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const columns = useMemo(() => [
     {
       title: intl.formatMessage({ id: 'table.column.Id' }),
@@ -59,21 +62,22 @@ export default function Users() {
     {
       title: intl.formatMessage({ id: 'table.column.Username' }),
       dataIndex: "userName",
-      key: "userName",
+      key: "userId",
     },
     {
       title: intl.formatMessage({ id: 'table.column.Age' }),
       dataIndex: "age",
-      key: "age",
+      key: "userId",
+      width: 60
     },
     {
       title: intl.formatMessage({ id: 'table.column.Email' }),
       dataIndex: "email",
-      key: "email",
+      key: "userId",
     },
     {
       title: intl.formatMessage({ id: 'table.column.Notes' }),
-      key: "notes",
+      key: "userId",
       dataIndex: "notes",
       render: (notes) => (
         <>
@@ -93,20 +97,21 @@ export default function Users() {
     {
       title: intl.formatMessage({ id: 'table.column.Action' }),
       key: "userId",
+      width: 200,
+      fixed: "right",
       render: (_, record) => (
-        <Space size="middle">
-          <DeleteUser key={1} user={record} />
-          {/* <EditUser key={2} user={record}></EditUser> */}
+        <div>
+          <DeleteUser user={record} />
           <Button
             type="primary"
-            style={{ marginLeft: 30 }}
+            style={{ marginLeft: 10 }}
             onClick={() => {
               handleOnclick(record, 'edit')
             }}
           >
             {intl.formatMessage({ id: 'Button.Edit' })}
           </Button>
-        </Space>
+        </div>
       ),
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -135,7 +140,7 @@ export default function Users() {
               }}
             >
               {intl.formatMessage({ id: 'Button.AddNew' })}
-            </Button> 
+            </Button>
             <Button
               type="primary"
               style={{ marginLeft: 10 }}
@@ -148,7 +153,7 @@ export default function Users() {
           </Row>
         </Col>
         <Col span={12}>
-          <Divider orientation="right"> 
+          <Divider orientation="right">
           </Divider>
         </Col>
       </Row>
@@ -169,7 +174,7 @@ export default function Users() {
             dispatch(authActions.logoutAction());
           }}
         >
-          <Link to={'/Login'}>{intl.formatMessage({ id: 'title.Logout' })}</Link>
+          {intl.formatMessage({ id: 'title.Logout' })}
         </Button>
       </Divider>
     </>

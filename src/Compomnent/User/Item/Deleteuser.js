@@ -23,8 +23,8 @@ const DeleteUser = ({ user }) => {
   };
   return (
     <Space wrap>
-      <Button onClick={() => showConfirm(user)} type="primary" danger>
-        Delete
+      <Button key ={user.userId} onClick={() => showConfirm(user)} type="primary" danger>
+        { intl.formatMessage({id: "Button.Delete"})}
       </Button>
     </Space>
   );

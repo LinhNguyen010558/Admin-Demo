@@ -5,9 +5,10 @@ import Users from "../Container/Users/index";
 import PrivateRouter from "./PrivateRouter";
 import Loader from '../Pages/spin/index'
 import Page404 from '../Pages/404/index'; 
+import { checkToken } from '../helper/ActionLogin';
 
 const WebRouter = () => {
-  const token = localStorage.getItem('token'); 
+  const token = checkToken(); 
   return (
     <BrowserRouter>
       <Suspense fallback={<Loader />}>

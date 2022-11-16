@@ -1,4 +1,9 @@
+import { checkToken } from './ActionLogin'
+
 export const getListUser = (data) => { 
+    if(!checkToken()) return {
+        code: 404
+    }
     let { page, limit, Users } = data;
     let fakeuser = [...Users];
     let TotalUsers = fakeuser.length;
@@ -49,6 +54,9 @@ export const getListUser = (data) => {
 
 
 export const deleteUser = (data) =>{
+    if(!checkToken()) return {
+        code: 404
+    }
     const { user, listData} = data; 
     const newUsers = listData.filter((u) => u?.userId !== user?.userId);
 
@@ -60,6 +68,9 @@ export const deleteUser = (data) =>{
 
 
 export const addUser = (data) =>{ 
+    if(!checkToken()) return {
+        code: 404
+    }
     const { user, listData } = data;
     let newList = [...listData];
     newList.unshift({...user, userId: Math.random() * 100 + 20}); 
@@ -70,6 +81,9 @@ export const addUser = (data) =>{
 }
 
 export const editUser = (data) =>{ 
+    if(!checkToken()) return {
+        code: 404
+    }
     const { user, listData } = data;
     let newList = [...listData];
     let objindex = newList.findIndex((obj) => obj.userId === user.userId);

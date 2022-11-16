@@ -18,6 +18,12 @@ export const checkAuth = (data) => {
     }
 }
 
-export const checkToken = (token) => {
-    return token === auth.FAKE_TOKEN ? true : false
+export const checkToken = () => {
+    let token = localStorage.getItem('token')
+     if(token && token === auth.FAKE_TOKEN){
+        return true;
+     } else {
+        localStorage.clear(); 
+        return false;
+     }
 }

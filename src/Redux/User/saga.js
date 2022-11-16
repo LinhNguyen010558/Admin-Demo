@@ -3,15 +3,21 @@ import actions from './actions';
 import notification from '../../Compomnent/Common/Notification/index';
 import { getListUser, deleteUser, addUser, editUser } from "../../helper/ActionUser";
 
+function* userInvalid() {
+    notification('error', 'Something Error!', '');
+    yield localStorage.clear(); 
+    window.location.reload()
+}
 
 function* handleGetListData() {
     yield takeLatest(actions.GET_DATA_USERS, function* ({ payload }) {
-        try {
-
+        try { 
             const Users = yield select((state) => state.users.data);
             const callApi = yield getListUser({ ...payload, Users })
             if (callApi?.code === 1) {
                 yield put(actions.getDataUserSuccess(callApi?.data));
+            } else if(callApi?.code === 404){
+                yield userInvalid()
             } else {
                 notification('error', 'Error!', '');
                 yield put(actions.actionFailure());
@@ -51,6 +57,8 @@ function* editUserData() {
             if (data_output?.code === 1) {
                 notification('success', 'Success', '');
                 yield put(actions.editDataSuccess(data_output?.data));
+            } else if(data_output?.code === 404){
+                yield userInvalid()
             } else {
                 notification('error', 'Error!', '');
                 yield put(actions.actionFailure());
